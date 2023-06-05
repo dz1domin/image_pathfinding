@@ -28,7 +28,7 @@ class application:
         self.tk.bind("<F11>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
         self.tk.configure(background='#F0F8FF')
-        self.tk.title('IMAGE ANALYSIS PROJECT')
+        self.tk.title('AiPO')
 
         Button(self.tk, text='Upload Photo', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
                command=self.loadPicture).place(x=62, y=38)
