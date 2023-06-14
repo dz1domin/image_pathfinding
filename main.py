@@ -97,12 +97,12 @@ class application:
         if self.x1 == 0 and self.y1 == 0:
             self.x1 = event.x
             self.y1 = event.y
-            self.canva.create_oval(self.x1-10, self.y1-10,self.x1+10, self.y1+10, fill="#2fff00")
+            self.canva.create_oval(self.x1 - 5, self.y1 - 5, self.x1 + 5, self.y1 + 5, fill="#2fff00")
             print("Starting Position = ({0},{1})".format(self.x1, self.y1))
         else:
             self.x2 = event.x
             self.y2 = event.y
-            self.canva.create_oval(self.x2 - 10, self.y2 - 10, self.x2 + 10, self.y2 + 10, fill="#ff0000")
+            self.canva.create_oval(self.x2 - 5, self.y2 - 5, self.x2 + 5, self.y2 + 5, fill="#ff0000")
             print("Ending Position = ({0},{1})".format(self.x2, self.y2))
 
     def findpath(self):
