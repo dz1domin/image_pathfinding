@@ -1,9 +1,4 @@
-# This is a sample Python script.
 import tkinter
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
 from tkinter import filedialog
 from tkinter import *
 from PIL import Image
@@ -114,8 +109,8 @@ class application:
             print("Ending Position = ({0},{1})".format(self.x2, self.y2))
 
     def find_path(self):
-        start = (self.x1, self.y1)
-        end = (self.x2, self.y2)
+        start = (self.y1, self.x1)
+        end = (self.y2, self.x2)
 
         # wyświetlanie każdego kroku przy pomocy cv2 imshow dla debugu głównie
         image = np.asarray(self.im)
@@ -128,6 +123,8 @@ class application:
 
         # filter
         filtered_image = averaging_filter_road_weight(thresh_image, int(self.filterSize.get()))
+        # odwracanie kolorów jeśli potrzeba
+        filtered_image = ~filtered_image
         cv2.imshow('filtered_image', filtered_image)
 
         # Dijkstra
