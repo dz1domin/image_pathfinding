@@ -1,13 +1,16 @@
 # This is a sample Python script.
-
+import tkinter
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-from tkinter import ttk, filedialog
+from tkinter import filedialog
 from tkinter import *
-from PIL import Image, ImageTk
+from PIL import Image
+from util.dijkstra import find_fastest_path, paint_fastest_path, create_graph_from_image
+from util.image_processing import threshold_image, averaging_filter_road_weight
 import cv2
+import numpy as np
 
 
 class application:
@@ -23,6 +26,7 @@ class application:
         self.y1 = 0
         self.x2 = 0
         self.y2 = 0
+        self.im = None
 
         self.tk.attributes("-fullscreen", False)
         self.tk.bind("<F11>", self.toggle_fullscreen)
@@ -32,22 +36,26 @@ class application:
 
         self.canva = None
 
-        Button(self.tk, text='Upload Photo', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
-               command=self.loadPicture).place(x=62, y=38)
+        Button(self.tk, text='Load Photo', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
+               command=self.load_picture).place(x=62, y=38)
 
         Button(self.tk, text='Find Path', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
-               command=self.findpath).place(x=76, y=80)
+               command=self.find_path).place(x=76, y=80)
 
         text1 = Label(self.tk, text='Custom Error')
         text1.place(x=52, y=150)
 
         self.usError = Entry(self.tk)
         self.usError.place(x=52, y=176)
+        # defualt wartość błędu
+        self.usError.insert(tkinter.END, '0.05')
 
         text2 = Label(self.tk, text='Filter Size')
         text2.place(x=52, y=230)
         self.filterSize = Entry(self.tk)
         self.filterSize.place(x=52, y=250)
+        # defualt wartość filtru
+        self.filterSize.insert(tkinter.END, '5')
 
         self.tk.resizable(False, False)
         self.tk.geometry("230x310")
@@ -62,7 +70,7 @@ class application:
         self.tk.attributes("-fullscreen", False)
         return "break"
 
-    def loadPicture(self):
+    def load_picture(self):
         self.piv = 0
         self.file_path = filedialog.askopenfilename()
         self.x1 = 0
@@ -73,8 +81,8 @@ class application:
             print(self.file_path)
 
             novi = Toplevel()
-            im = Image.open(self.file_path)
-            width, height = im.size
+            self.im = Image.open(self.file_path)
+            width, height = self.im.size
             novi.resizable(False, False)
             novi.geometry(str(width) + "x" + str(height))
             canvas = Canvas(novi, width=300, height=200)
@@ -85,14 +93,14 @@ class application:
 
             canvas.gif1 = gif1
             novi.canva = canvas
-            novi.bind('<Button-1>', self.getxy)
+            novi.bind('<Button-1>', self.get_xy)
 
             self.canva = canvas
         except:
             print(self.file_path)
             print("wrong file path")
 
-    def getxy(self, event):
+    def get_xy(self, event):
         print("Position = ({0},{1})".format(event.x, event.y))
         if self.x1 == 0 and self.y1 == 0:
             self.x1 = event.x
@@ -105,10 +113,28 @@ class application:
             self.canva.create_oval(self.x2 - 5, self.y2 - 5, self.x2 + 5, self.y2 + 5, fill="#ff0000")
             print("Ending Position = ({0},{1})".format(self.x2, self.y2))
 
-    def findpath(self):
-        print("logika")
-        print(self.usError.get())
-        print(self.filterSize.get())
+    def find_path(self):
+        start = (self.x1, self.y1)
+        end = (self.x2, self.y2)
+
+        # wyświetlanie każdego kroku przy pomocy cv2 imshow dla debugu głównie
+        image = np.asarray(self.im)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        cv2.imshow('gray_image', gray_image)
+
+        # threshold
+        thresh_image = threshold_image(gray_image, start, end, float(self.usError.get()))
+        cv2.imshow('thresh_image', thresh_image)
+
+        # filter
+        filtered_image = averaging_filter_road_weight(thresh_image, int(self.filterSize.get()))
+        cv2.imshow('filtered_image', filtered_image)
+
+        # Dijkstra
+        graph = create_graph_from_image(filtered_image)
+        cost, path = find_fastest_path(graph, start, end)
+        end_image = paint_fastest_path(image, path)
+        cv2.imshow('end_image', end_image)
 
         # novi2 = Toplevel()
         # canvas = Canvas(novi2, width=300, height=200)
