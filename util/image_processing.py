@@ -22,12 +22,16 @@ def threshold_image(image, start, end, tolerance):
     return cv2.inRange(image, lower, upper)
 
 
-def averaging_filter_road_weight(image, filter_size=5):
+def averaging_filter_road_weight(image, filter_size=5, minimum_pixel_weight=10):
     kernel = np.ones((filter_size, filter_size), np.float32) / filter_size**2
 
     # filtr uśredniający
     filtered_image = cv2.filter2D(image, -1, kernel)
     # nowe wagi bierzemy tylko tam gdzie w oryginale w środku filtra nie było zero
     ret_image = cv2.bitwise_and(filtered_image, filtered_image, mask=image)
+    # odwracanie kolorów jeśli potrzeba (jeśli potrzeba XDDD, pewnie że trzeba - dopisek późniejszy)
+    ret_image = ~ret_image
+    # każdy piksel powinien mieć minium wartość bo algorytm Dijkstry może zacząć robić "pętle"
+    ret_image[ret_image < minimum_pixel_weight] = minimum_pixel_weight
 
     return ret_image

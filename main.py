@@ -123,10 +123,6 @@ class application:
 
         # filter
         filtered_image = averaging_filter_road_weight(thresh_image, int(self.filterSize.get()))
-        # odwracanie kolorów jeśli potrzeba (jeśli potrzeba XDDD, pewnie że trzeba - dopisek późniejszy)
-        filtered_image = ~filtered_image
-        # filtered_image = np.asarray(filtered_image, np.uint16)
-        # filtered_image = filtered_image * 100
         cv2.imshow('filtered_image', filtered_image)
 
         # Dijkstra
