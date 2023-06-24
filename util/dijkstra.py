@@ -1,23 +1,4 @@
-import numpy as np
 import heapq
-
-
-def create_graph_from_image(image):
-    rows, cols = image.shape[:2]
-    graph = np.zeros((rows, cols), dtype=np.float32)
-
-    for i in range(rows):
-        for j in range(cols):
-            if i > 0:
-                graph[i, j] += abs(int(image[i, j]) - int(image[i - 1, j]))
-            if i < rows - 1:
-                graph[i, j] += abs(int(image[i, j]) - int(image[i + 1, j]))
-            if j > 0:
-                graph[i, j] += abs(int(image[i, j]) - int(image[i, j - 1]))
-            if j < cols - 1:
-                graph[i, j] += abs(int(image[i, j]) - int(image[i, j + 1]))
-
-    return graph
 
 
 def find_fastest_path(graph, start, end):
@@ -67,11 +48,11 @@ def find_fastest_path(graph, start, end):
     return cost, path
 
 
-def paint_fastest_path(image, fastest_path):
+def paint_fastest_path(image, fastest_path, color=(0, 0, 255)):
     ret = image.copy()
 
     for point in fastest_path:
         row, col = point
-        ret[row, col] = [0, 0, 255]
+        ret[row, col] = color
 
     return ret

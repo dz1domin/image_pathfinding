@@ -2,7 +2,7 @@ import tkinter
 from tkinter import filedialog
 from tkinter import *
 from PIL import Image
-from util.dijkstra import find_fastest_path, paint_fastest_path, create_graph_from_image
+from util.dijkstra import find_fastest_path, paint_fastest_path
 from util.image_processing import threshold_image, averaging_filter_road_weight
 import cv2
 import numpy as np
@@ -123,25 +123,17 @@ class application:
 
         # filter
         filtered_image = averaging_filter_road_weight(thresh_image, int(self.filterSize.get()))
-        # odwracanie kolorów jeśli potrzeba
+        # odwracanie kolorów jeśli potrzeba (jeśli potrzeba XDDD, pewnie że trzeba - dopisek późniejszy)
         filtered_image = ~filtered_image
+        # filtered_image = np.asarray(filtered_image, np.uint16)
+        # filtered_image = filtered_image * 100
         cv2.imshow('filtered_image', filtered_image)
 
         # Dijkstra
-        graph = create_graph_from_image(filtered_image)
-        cost, path = find_fastest_path(graph, start, end)
+        cost, path = find_fastest_path(filtered_image, start, end)
         end_image = paint_fastest_path(image, path)
         cv2.imshow('end_image', end_image)
-
-        # novi2 = Toplevel()
-        # canvas = Canvas(novi2, width=300, height=200)
-        # canvas.pack(expand=YES, fill=BOTH)
-        # gif2 = PhotoImage(file=self.file_path)
-        #
-        # canvas.create_image(0, 0, image=gif2, anchor=NW)
-        #
-        # canvas.gif1 = gif2
-        # novi2.canva = canvas
+        print(f'path cost: {cost}')
 
 
 if __name__ == '__main__':
