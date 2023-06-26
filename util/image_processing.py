@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from tkinter import PhotoImage
 
 
 def threshold_image(image, start, end, tolerance):
@@ -35,3 +36,10 @@ def averaging_filter_road_weight(image, filter_size=5, minimum_pixel_weight=10):
     ret_image[ret_image < minimum_pixel_weight] = minimum_pixel_weight
 
     return ret_image
+
+
+def array_to_photo_image(image: np.ndarray):
+    height, width = image.shape[:2]
+    ppm_header = f'P6 {width} {height} 255 '.encode()
+    data = ppm_header + cv2.cvtColor(image, cv2.COLOR_BGR2RGB).tobytes()
+    return PhotoImage(width=width, height=height, data=data, format='PPM')
