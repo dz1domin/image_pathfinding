@@ -1,16 +1,24 @@
 import tkinter
 from tkinter import filedialog
 from tkinter import *
-from PIL import Image
+from PIL import Image, ImageTk
 from util.dijkstra import find_fastest_path, paint_fastest_path
-from util.image_processing import threshold_image, averaging_filter_road_weight
+from util.image_processing import threshold_image, averaging_filter_road_weight, array_to_photo_image
 import cv2
 import numpy as np
+
+
+MAX_IMAGE_HEIGHT = 900
+MAX_IMAGE_WIDTH = 1024
 
 
 class application:
 
     def __init__(self):
+        self.novi = None
+        self.end_image = None
+        self.image_on_canvas = None
+        self.canvas = None
         self.tk = Tk()
         self.piv = 0
         self.result = []
@@ -73,24 +81,32 @@ class application:
         self.x2 = 0
         self.y2 = 0
         try:
-            print(self.file_path)
+            # print(self.file_path)
+            if self.novi is not None:
+                self.novi.destroy()
 
-            novi = Toplevel()
+            self.novi = Toplevel()
             self.im = Image.open(self.file_path)
             width, height = self.im.size
-            novi.resizable(False, False)
-            novi.geometry(str(width) + "x" + str(height))
-            canvas = Canvas(novi, width=300, height=200)
-            canvas.pack(expand=YES, fill=BOTH)
-            gif1 = PhotoImage(file=self.file_path)
 
-            canvas.create_image(0, 0, image=gif1, anchor=NW)
+            width = width if width < MAX_IMAGE_WIDTH else MAX_IMAGE_WIDTH
+            height = height if height < MAX_IMAGE_HEIGHT else MAX_IMAGE_HEIGHT
 
-            canvas.gif1 = gif1
-            novi.canva = canvas
-            novi.bind('<Button-1>', self.get_xy)
+            self.im = self.im.resize((width, height), Image.LANCZOS)
 
-            self.canva = canvas
+            self.novi.resizable(False, False)
+            self.novi.geometry(str(width) + "x" + str(height))
+            self.canvas = Canvas(self.novi)
+            self.canvas.pack(expand=YES, fill=BOTH)
+            gif1 = ImageTk.PhotoImage(self.im)
+
+            self.image_on_canvas = self.canvas.create_image(0, 0, image=gif1, anchor=NW)
+
+            self.canvas.gif1 = gif1
+            self.novi.canva = self.canvas
+            self.novi.bind('<Button-1>', self.get_xy)
+
+            self.canva = self.canvas
         except:
             print(self.file_path)
             print("wrong file path")
@@ -102,11 +118,13 @@ class application:
             self.y1 = event.y
             self.canva.create_oval(self.x1 - 5, self.y1 - 5, self.x1 + 5, self.y1 + 5, fill="#2fff00")
             print("Starting Position = ({0},{1})".format(self.x1, self.y1))
-        else:
+        elif self.x2 == 0 and self.y2 == 0:
             self.x2 = event.x
             self.y2 = event.y
             self.canva.create_oval(self.x2 - 5, self.y2 - 5, self.x2 + 5, self.y2 + 5, fill="#ff0000")
             print("Ending Position = ({0},{1})".format(self.x2, self.y2))
+        else:
+            pass
 
     def find_path(self):
         start = (self.y1, self.x1)
@@ -118,19 +136,22 @@ class application:
 
         # threshold
         thresh_image = threshold_image(gray_image, start, end, float(self.usError.get()))
-        cv2.imshow('thresh_image', thresh_image)
+        # cv2.imshow('thresh_image', thresh_image)
 
         # filter
         filtered_image = averaging_filter_road_weight(thresh_image, int(self.filterSize.get()))
-        cv2.imshow('filtered_image', filtered_image)
+        # cv2.imshow('filtered_image', filtered_image)
 
         # Dijkstra
         filtered_image = np.asarray(filtered_image, np.uint32)
         filtered_image = filtered_image ** 3
         cost, path = find_fastest_path(filtered_image, start, end)
         end_image = paint_fastest_path(image, path)
-        cv2.imshow('end_image', end_image)
+        # cv2.imshow('end_image', end_image)
         print(f'path cost: {cost}')
+
+        self.end_image = array_to_photo_image(end_image)
+        self.canvas.itemconfig(self.image_on_canvas, image=self.end_image)
 
 
 if __name__ == '__main__':

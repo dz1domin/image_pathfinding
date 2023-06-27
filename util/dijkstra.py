@@ -63,11 +63,6 @@ def paint_fastest_path(image, fastest_path, color=(255, 0, 0), skip_step=1):
         prev = curr
     ret = cv2.line(ret, prev, (fastest_path[-1][1], fastest_path[-1][0]), color, lineType=cv2.LINE_AA)
 
-    ret = cv2.circle(ret, (fastest_path[0][1], fastest_path[0][0]), 5, ImageColor.getrgb("#ff0000"), -1)
-    ret = cv2.circle(ret, (fastest_path[0][1], fastest_path[0][0]), 5, (0, 0, 0))
-    ret = cv2.circle(ret, (fastest_path[-1][1], fastest_path[-1][0]), 5, ImageColor.getrgb("#2fff00"), -1)
-    ret = cv2.circle(ret, (fastest_path[-1][1], fastest_path[-1][0]), 5, (0, 0, 0))
-
     ret = cv2.cvtColor(ret, cv2.COLOR_RGB2BGR)
 
     return ret
