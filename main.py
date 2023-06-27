@@ -91,11 +91,12 @@ class application:
 
             width = width if width < MAX_IMAGE_WIDTH else MAX_IMAGE_WIDTH
             height = height if height < MAX_IMAGE_HEIGHT else MAX_IMAGE_HEIGHT
+            pos_x, pos_y = (0, 0)
 
             self.im = self.im.resize((width, height), Image.LANCZOS)
 
             self.novi.resizable(False, False)
-            self.novi.geometry(str(width) + "x" + str(height))
+            self.novi.geometry(f"{width}x{height}+{pos_x}+{pos_y}")
             self.canvas = Canvas(self.novi)
             self.canvas.pack(expand=YES, fill=BOTH)
             gif1 = ImageTk.PhotoImage(self.im)
