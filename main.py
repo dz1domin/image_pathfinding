@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import filedialog
+from tkinter import messagebox
 from tkinter import *
 from PIL import Image, ImageTk
 from util.dijkstra import find_fastest_path, paint_fastest_path
@@ -153,6 +154,8 @@ class application:
 
         self.end_image = array_to_photo_image(end_image)
         self.canvas.itemconfig(self.image_on_canvas, image=self.end_image)
+
+        messagebox.showinfo('Message', f'Path cost: {cost}, average cost per pixel: {(cost / len(path)):.4f}')
 
 
 if __name__ == '__main__':
