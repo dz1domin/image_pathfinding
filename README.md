@@ -1,0 +1,1 @@
+# Tutaj będzie krótki opis projektu, uruchamianie itp.
