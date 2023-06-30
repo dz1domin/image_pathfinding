@@ -158,6 +158,7 @@ class application:
         filtered_image = filtered_image ** 3
         cost, path = find_fastest_path(filtered_image, start, end)
         end_image = paint_fastest_path(image, path)
+        end_image = cv2.cvtColor(end_image, cv2.COLOR_BGR2RGB)
         # cv2.imshow('end_image', end_image)
         print(f'path cost: {cost}')
 
