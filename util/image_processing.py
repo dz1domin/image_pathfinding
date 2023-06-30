@@ -4,26 +4,12 @@ from tkinter import PhotoImage
 
 
 def threshold_image(image, start, end, tolerance, extra_probes):
-    color_start = int(image[start])
-    color_end = int(image[end])
-    print(f'start col: {color_start}, end col: {color_end}')
-    mean_color = (color_start + color_end) / 2
+    probes = [start, end, *extra_probes]
+    ret = None
 
-    # sprawdzanie czy zakresy sie zgadzaja
-    lower = mean_color - mean_color * tolerance
-    lower = lower if 0 <= lower <= 255 else 0
-    lower = int(lower)
-
-    upper = mean_color + mean_color * tolerance
-    upper = upper if 0 <= upper <= 255 else 255
-    upper = int(upper)
-
-    print(f'lower thresh: {lower}, upper thresh: {upper}')
-
-    ret = cv2.inRange(image, lower, upper)
-
-    for probe in extra_probes:
+    for probe in probes:
         probe_color = int(image[probe])
+        # sprawdzanie czy zakresy sie zgadzaja
         lower_probe = probe_color - probe_color * tolerance
         lower_probe = lower_probe if 0 <= lower_probe <= 255 else 0
         lower_probe = int(lower_probe)
@@ -34,7 +20,7 @@ def threshold_image(image, start, end, tolerance, extra_probes):
 
         probed_image = cv2.inRange(image, lower_probe, upper_probe)
 
-        ret = cv2.bitwise_or(ret, probed_image)
+        ret = probed_image if ret is None else cv2.bitwise_or(ret, probed_image)
 
     return ret
 
