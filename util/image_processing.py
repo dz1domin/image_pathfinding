@@ -3,7 +3,7 @@ import numpy as np
 from tkinter import PhotoImage
 
 
-def threshold_image(image, start, end, tolerance):
+def threshold_image(image, start, end, tolerance, extra_probes):
     color_start = int(image[start])
     color_end = int(image[end])
     print(f'start col: {color_start}, end col: {color_end}')
@@ -20,7 +20,23 @@ def threshold_image(image, start, end, tolerance):
 
     print(f'lower thresh: {lower}, upper thresh: {upper}')
 
-    return cv2.inRange(image, lower, upper)
+    ret = cv2.inRange(image, lower, upper)
+
+    for probe in extra_probes:
+        probe_color = int(image[probe])
+        lower_probe = probe_color - probe_color * tolerance
+        lower_probe = lower_probe if 0 <= lower_probe <= 255 else 0
+        lower_probe = int(lower_probe)
+
+        upper_probe = probe_color + probe_color * tolerance
+        upper_probe = upper_probe if 0 <= upper_probe <= 255 else 255
+        upper_probe = int(upper_probe)
+
+        probed_image = cv2.inRange(image, lower_probe, upper_probe)
+
+        ret = cv2.bitwise_or(ret, probed_image)
+
+    return ret
 
 
 def averaging_filter_road_weight(image, filter_size=5, minimum_pixel_weight=10):

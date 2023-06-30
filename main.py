@@ -10,12 +10,13 @@ import numpy as np
 
 
 MAX_IMAGE_HEIGHT = 900
-MAX_IMAGE_WIDTH = 1024
+MAX_IMAGE_WIDTH = 1280
 
 
 class application:
 
     def __init__(self):
+        self.extra_probes = []
         self.novi = None
         self.end_image = None
         self.image_on_canvas = None
@@ -120,20 +121,21 @@ class application:
             self.x1 = event.x
             self.y1 = event.y
             self.canva.create_oval(self.x1 - 5, self.y1 - 5, self.x1 + 5, self.y1 + 5, fill="#2fff00", tags=('point'))
-            print("Starting Position = ({0},{1})".format(self.x1, self.y1))
         elif self.x2 == 0 and self.y2 == 0:
             self.x2 = event.x
             self.y2 = event.y
             self.canva.create_oval(self.x2 - 5, self.y2 - 5, self.x2 + 5, self.y2 + 5, fill="#ff0000", tags=('point'))
-            print("Ending Position = ({0},{1})".format(self.x2, self.y2))
         else:
-            pass
+            self.extra_probes.append((event.y, event.x))
+            self.canva.create_oval(self.extra_probes[-1][1] - 5, self.extra_probes[-1][0] - 5,
+                                   self.extra_probes[-1][1] + 5, self.extra_probes[-1][0] + 5, fill="#8994b0", tags=('point'))
 
     def reset_xy(self, event):
         self.x1 = 0
         self.y1 = 0
         self.x2 = 0
         self.y2 = 0
+        self.extra_probes = []
         self.canva.delete('point')
         print("Position has been cleared")
 
@@ -146,7 +148,7 @@ class application:
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
         # threshold
-        thresh_image = threshold_image(gray_image, start, end, float(self.usError.get()))
+        thresh_image = threshold_image(gray_image, start, end, float(self.usError.get()), self.extra_probes)
         # cv2.imshow('thresh_image', thresh_image)
 
         # filter
