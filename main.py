@@ -107,6 +107,7 @@ class application:
             self.canvas.gif1 = gif1
             self.novi.canva = self.canvas
             self.novi.bind('<Button-1>', self.get_xy)
+            self.novi.bind('<Button-3>', self.reset_xy)
 
             self.canva = self.canvas
         except:
@@ -118,15 +119,23 @@ class application:
         if self.x1 == 0 and self.y1 == 0:
             self.x1 = event.x
             self.y1 = event.y
-            self.canva.create_oval(self.x1 - 5, self.y1 - 5, self.x1 + 5, self.y1 + 5, fill="#2fff00")
+            self.canva.create_oval(self.x1 - 5, self.y1 - 5, self.x1 + 5, self.y1 + 5, fill="#2fff00", tags=('point'))
             print("Starting Position = ({0},{1})".format(self.x1, self.y1))
         elif self.x2 == 0 and self.y2 == 0:
             self.x2 = event.x
             self.y2 = event.y
-            self.canva.create_oval(self.x2 - 5, self.y2 - 5, self.x2 + 5, self.y2 + 5, fill="#ff0000")
+            self.canva.create_oval(self.x2 - 5, self.y2 - 5, self.x2 + 5, self.y2 + 5, fill="#ff0000", tags=('point'))
             print("Ending Position = ({0},{1})".format(self.x2, self.y2))
         else:
             pass
+
+    def reset_xy(self, event):
+        self.x1 = 0
+        self.y1 = 0
+        self.x2 = 0
+        self.y2 = 0
+        self.canva.delete('point')
+        print("Position has been cleared")
 
     def find_path(self):
         start = (self.y1, self.x1)
