@@ -201,6 +201,10 @@ class Application:
         start = (self.y1, self.x1)
         end = (self.y2, self.x2)
 
+        if start == (0, 0) or end == (0, 0) or self.im is None:
+            messagebox.showerror('Error', 'First load the image and then choose starting and end point.')
+            return
+
         # wyświetlanie każdego kroku przy pomocy cv2 imshow dla debugu głównie
         image = np.asarray(self.im)
         gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
