@@ -10,9 +10,9 @@
 
 # How to run
 ## Linux
-Download *.tar.gz from Releases and run e.g.
+Download *.tar.gz from Releases and run e.g. for newest linux 64 bit release
 ```
-tar -xzf aipo_project_v.1.0.0.tar.gz 
+tar -xzf aipo_project_linux_64_v.1.0.0.tar.gz 
 ```
 ```
 ./aipo_project/main
