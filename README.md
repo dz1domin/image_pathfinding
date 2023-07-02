@@ -5,4 +5,5 @@
 - Przemysław Rodzik - GUI
 - Łukasz Wajda - GUI
 - Mateusz Niepokój - generacja obrazów testowych
+- Mariusz Biegański - release
 - cdn.

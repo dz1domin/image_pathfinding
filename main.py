@@ -167,7 +167,9 @@ class Application:
             self.novi.bind('<Button-3>', self.reset_xy)
 
             self.canva = self.canvas
-        except:
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            traceback.print_exc()
             print(self.file_path)
             print("wrong file path")
 
