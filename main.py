@@ -38,67 +38,71 @@ class Application:
         self.tk.attributes("-fullscreen", False)
         self.tk.bind("<F11>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
-        self.tk.configure(background='#F0F8FF')
+        # Set the background color to light green
+        self.tk.configure(background='#BDFCC9')
         self.tk.title('AiPO')
 
         self.canva = None
 
-        Label(self.tk, text='Max Image Width:').grid(
+        Label(self.tk, text='Max Image Width:', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=0, column=0, padx=10, pady=10)
         self.max_width_scale = Scale(
             self.tk, from_=100, to=MAX_IMAGE_WIDTH, orient='horizontal')
         self.max_width_scale.set(MAX_IMAGE_WIDTH)
+        self.max_width_scale.configure(bg='#CADC79')
         self.max_width_scale.grid(row=0, column=1, padx=10, pady=10)
 
-        Label(self.tk, text='Max Image Height:').grid(
+        Label(self.tk, text='Max Image Height:', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=1, column=0, padx=10, pady=10)
         self.max_height_scale = Scale(
             self.tk, from_=100, to=MAX_IMAGE_HEIGHT, orient='horizontal')
         self.max_height_scale.set(MAX_IMAGE_HEIGHT)
+        self.max_height_scale.configure(bg='#CADC79')
         self.max_height_scale.grid(row=1, column=1, padx=10, pady=10)
 
-        Button(self.tk, text='Load Photo', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
+        Button(self.tk, text='Load Photo', bg='#8ABF9E', font=("Arial", 12, 'bold'),  # Set font and background color for the button
                command=self.load_picture).grid(row=2, column=0, columnspan=2, padx=10, pady=10)
 
-        Label(self.tk, text='Minimum Pixel Weight:').grid(
+        Label(self.tk, text='Minimum Pixel Weight:', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=3, column=0, padx=10, pady=10)
         self.min_pixel_weight_entry = Entry(self.tk)
         self.min_pixel_weight_entry.grid(row=3, column=1, padx=10, pady=10)
         self.min_pixel_weight_entry.insert(END, '10')
 
-        Label(self.tk, text='Step Value:').grid(
+        Label(self.tk, text='Step Value:', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=4, column=0, padx=10, pady=10)
         self.step_value_entry = Entry(self.tk)
         self.step_value_entry.grid(row=4, column=1, padx=10, pady=10)
         self.step_value_entry.insert(END, '1')
 
-        Button(self.tk, text='Choose Path Color', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
+        Button(self.tk, text='Choose Path Color', bg='#8ABF9E', font=("Arial", 12, 'bold'),
                command=self.choose_path_color).grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
-        Button(self.tk, text='Find Path', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
+        Button(self.tk, text='Find Path', bg='#8ABF9E', font=("Arial", 12, 'bold'),
                command=self.find_path).grid(row=6, column=0, columnspan=2, padx=10, pady=10)
 
-        Label(self.tk, text='Path Width:').grid(
+        Label(self.tk, text='Path Width:', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=9, column=0, padx=10, pady=10)
         self.path_width_scale = Scale(
             self.tk, from_=1, to=10, orient='horizontal')
         self.path_width_scale.set(2)  # Set an initial value for the path width
+        self.path_width_scale.configure(bg='#CADD84')
         self.path_width_scale.grid(row=9, column=1, padx=10, pady=10)
 
-        Label(self.tk, text='Custom Error').grid(
+        Label(self.tk, text='Custom Error', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=7, column=0, padx=10, pady=10)
         self.usError = Entry(self.tk)
         self.usError.grid(row=7, column=1, padx=10, pady=10)
         self.usError.insert(END, '0.05')
 
-        Label(self.tk, text='Filter Size').grid(
+        Label(self.tk, text='Filter Size', font=('Verdana', 11, 'bold'), bg='#BDFCC9').grid(
             row=8, column=0, padx=10, pady=10)
         self.filterSize = Entry(self.tk)
         self.filterSize.grid(row=8, column=1, padx=10, pady=10)
         self.filterSize.insert(END, '5')
 
         self.tk.resizable(False, False)
-        self.tk.geometry("300x550")
+        self.tk.geometry("360x550")
 
     def choose_path_color(self):
         color = colorchooser.askcolor(
