@@ -89,6 +89,7 @@ class application:
 
             self.novi = Toplevel()
             self.im = Image.open(self.file_path)
+            self.im = self.im.convert('RGB')
             width, height = self.im.size
 
             width = width if width < MAX_IMAGE_WIDTH else MAX_IMAGE_WIDTH
