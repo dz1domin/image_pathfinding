@@ -10,8 +10,8 @@ from util.image_processing import threshold_image, averaging_filter_road_weight,
 import cv2
 import numpy as np
 
-MAX_IMAGE_HEIGHT = 900
-MAX_IMAGE_WIDTH = 1280
+MAX_IMAGE_HEIGHT = 1080
+MAX_IMAGE_WIDTH = 1920
 
 
 class Application:

@@ -54,7 +54,6 @@ def find_fastest_path(graph, start, end):
 
 def paint_fastest_path(image, fastest_path, color_bgr=(0, 0, 255), path_width=2, skip_step=1):
     ret = image.copy()
-    ret = cv2.cvtColor(ret, cv2.COLOR_BGR2RGB)
 
     prev = fastest_path[0][1], fastest_path[0][0]
     for point in fastest_path[1::skip_step]:
@@ -64,7 +63,5 @@ def paint_fastest_path(image, fastest_path, color_bgr=(0, 0, 255), path_width=2,
         prev = curr
     ret = cv2.line(ret, prev, (fastest_path[-1][1], fastest_path[-1][0]),
                    color_bgr, lineType=cv2.LINE_AA, thickness=path_width)
-
-    ret = cv2.cvtColor(ret, cv2.COLOR_RGB2BGR)
 
     return ret
