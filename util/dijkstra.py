@@ -59,7 +59,8 @@ def paint_fastest_path(image, fastest_path, color_bgr=(0, 0, 255), path_width=2,
     prev = fastest_path[0][1], fastest_path[0][0]
     for point in fastest_path[1::skip_step]:
         curr = point[1], point[0]
-        ret = cv2.line(ret, prev, curr, color_bgr, thickness=path_width)
+        ret = cv2.line(ret, prev, curr, color_bgr,
+                       lineType=cv2.LINE_AA, thickness=path_width)
         prev = curr
     ret = cv2.line(ret, prev, (fastest_path[-1][1], fastest_path[-1][0]),
                    color_bgr, lineType=cv2.LINE_AA, thickness=path_width)

@@ -141,10 +141,13 @@ class Application:
             self.novi = Toplevel()
             self.im = Image.open(self.file_path)
             self.im = self.im.convert('RGB')
-            width, height = self.im.size
+            width_image, height_image = self.im.size
 
-            width = self.max_width_scale.get()
-            height = self.max_height_scale.get()
+            width_custom = self.max_width_scale.get()
+            height_custom = self.max_height_scale.get()
+
+            width = width_image if width_image < width_custom else width_custom
+            height = height_image if height_image < height_custom else height_custom
             pos_x, pos_y = (0, 0)
 
             self.im = self.im.resize((width, height), Image.LANCZOS)
