@@ -20,7 +20,8 @@ def threshold_image(image, start, end, tolerance, extra_probes):
 
         probed_image = cv2.inRange(image, lower_probe, upper_probe)
 
-        ret = probed_image if ret is None else cv2.bitwise_or(ret, probed_image)
+        ret = probed_image if ret is None else cv2.bitwise_or(
+            ret, probed_image)
 
     return ret
 
