@@ -78,6 +78,13 @@ class Application:
         Button(self.tk, text='Find Path', bg='#F0F8FF', font=("Times New Roman", 12, 'normal'),
                command=self.find_path).grid(row=6, column=0, columnspan=2, padx=10, pady=10)
 
+        Label(self.tk, text='Path Width:').grid(
+            row=9, column=0, padx=10, pady=10)
+        self.path_width_scale = Scale(
+            self.tk, from_=1, to=10, orient='horizontal')
+        self.path_width_scale.set(2)  # Set an initial value for the path width
+        self.path_width_scale.grid(row=9, column=1, padx=10, pady=10)
+
         Label(self.tk, text='Custom Error').grid(
             row=7, column=0, padx=10, pady=10)
         self.usError = Entry(self.tk)
@@ -91,7 +98,7 @@ class Application:
         self.filterSize.insert(END, '5')
 
         self.tk.resizable(False, False)
-        self.tk.geometry("300x500")
+        self.tk.geometry("300x550")
 
     def choose_path_color(self):
         color = colorchooser.askcolor(
@@ -193,6 +200,9 @@ class Application:
 
         path_color = self.path_color
 
+        # Get the path width from the scale widget
+        path_width = self.path_width_scale.get()
+
         try:
             min_pixel_weight = int(self.min_pixel_weight_entry.get())
             step_value = int(self.step_value_entry.get())
@@ -213,8 +223,9 @@ class Application:
         filtered_image[:, [0, -1]] = filtered_image[[0, -1]
                                                     ] = np.iinfo(filtered_image.dtype).max
         cost, path = find_fastest_path(filtered_image, start, end)
+        # Paint the fastest path with the chosen path color and width
         end_image = paint_fastest_path(
-            image, path, color_bgr=path_color, skip_step=step_value)
+            image, path, color_bgr=path_color, path_width=path_width, skip_step=step_value)
         # cv2.imshow,('end_image', end_image)
         print(f'path cost: {cost}')
 
