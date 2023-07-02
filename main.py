@@ -77,11 +77,15 @@ class application:
 
     def load_picture(self):
         self.piv = 0
-        self.file_path = filedialog.askopenfilename()
+        self.file_path = filedialog.askopenfilename(filetypes=[('PNG', '*.png'), ('JPEG', '*.jpg *.jpeg'), ('All', '*.*')])
         self.x1 = 0
         self.y1 = 0
         self.x2 = 0
         self.y2 = 0
+
+        if self.file_path == '':
+            return
+
         try:
             # print(self.file_path)
             if self.novi is not None:
@@ -159,6 +163,7 @@ class application:
         # Dijkstra
         filtered_image = np.asarray(filtered_image, np.uint32)
         filtered_image = filtered_image ** 3
+        filtered_image[:, [0, -1]] = filtered_image[[0, -1]] = np.iinfo(filtered_image.dtype).max
         cost, path = find_fastest_path(filtered_image, start, end)
         end_image = paint_fastest_path(image, path)
         # cv2.imshow('end_image', end_image)
