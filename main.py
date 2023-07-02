@@ -145,7 +145,7 @@ class application:
 
         # wyświetlanie każdego kroku przy pomocy cv2 imshow dla debugu głównie
         image = np.asarray(self.im)
-        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
         # threshold
         thresh_image = threshold_image(gray_image, start, end, float(self.usError.get()), self.extra_probes)
@@ -160,7 +160,6 @@ class application:
         filtered_image = filtered_image ** 3
         cost, path = find_fastest_path(filtered_image, start, end)
         end_image = paint_fastest_path(image, path)
-        end_image = cv2.cvtColor(end_image, cv2.COLOR_BGR2RGB)
         # cv2.imshow('end_image', end_image)
         print(f'path cost: {cost}')
 
