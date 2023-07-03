@@ -29,4 +29,4 @@ Download *.zip from Releases for your platform and unzip the folder, open aipo_p
 6. Change Filter Size (Optional)
 7. Change Path Width(Optional)
 8. Select to points on the image you selected
-9. Click Find Path and wait, the path will appear on the image, additionally you will get a popup window with a path cost and average cost per pixel
+9. Click Find Path and wait, the path will appear on the image, additionally you will get a popup window with path cost and average cost per pixel
