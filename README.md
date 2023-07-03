@@ -2,7 +2,7 @@
 
 # Autorzy
 - Dominik Dziuba - pomysł i implementacja algorytmu
-- Przemysław Rodzik - GUI
+- Przemysław Rodzik - GUI, implementacja algorytmu Dijkstry
 - Łukasz Wajda - GUI
 - Mateusz Niepokój - generacja obrazów testowych
 - Mariusz Biegański - release
