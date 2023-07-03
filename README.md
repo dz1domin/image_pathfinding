@@ -9,6 +9,7 @@
 - cdn.
 
 # How to run
+Go to our Release page and select the most suitable option for your system. You can find them under [this link](https://github.com/Dodzik/AiPO_project/releases/latest).
 ## Linux
 Download *.tar.gz from Releases and run e.g. for newest linux 64 bit release
 ```
