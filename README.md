@@ -17,3 +17,6 @@ tar -xzf aipo_project_linux_64_v.1.0.0.tar.gz
 ```
 ./aipo_project/main
 ```
+## Windows
+Download *.zip from Releases for your platform and unzip the folder.
+Go into aipo_project_windows, find main.exe and double click it to run.
