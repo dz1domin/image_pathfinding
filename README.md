@@ -7,7 +7,7 @@
 - Szymon Pawelec - documentation
 
 # How to run
-Go to our Release page and select the most suitable option for your system. You can find them under [this link](https://github.com/Dodzik/AiPO_project/releases/latest).
+Go to our Release page and select the most suitable option for your system. You can find them under [this link](https://github.com/Dodzik/AiPO_project/releases/latest). Both the releases are created for python version 3.11 as well as the script itself has been tested with that version in mind. Older versions might also work but that has not been tested.
 ## Linux
 Download *.tar.gz from Releases and run e.g. for newest linux 64 bit release
 ```
