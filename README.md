@@ -19,6 +19,17 @@ tar -xzf aipo_project_linux_64_v.1.0.0.tar.gz
 ## Windows
 Download *.zip from Releases for your platform and unzip the folder, open aipo_project_windows folder, find main.exe and double click it to start the application.
 
+## Python
+If all else fails on a python-supported platform you can also simply download the interpreter and then the source code for the project. Run the following line to install necessary dependencies:
+```
+pip install -r requirements.txt
+```
+In the folder you have unpacked the source code in. And then simply launch the program like so:
+```
+python main.py
+```
+It is necessary that during the installation of the python interpreter, the tcl/tk additional package is also installed.
+
 # How to use
 1. Select an image
 2. Change Minimum Pixel Weight(Optional)
