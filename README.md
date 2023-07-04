@@ -1,15 +1,13 @@
-# Tutaj będzie krótki opis projektu, uruchamianie itp.
-
-# Autorzy
-- Dominik Dziuba - pomysł i implementacja algorytmu
-- Przemysław Rodzik - GUI, implementacja algorytmu Dijkstry
+# Authors
+- Dominik Dziuba - general idea and implementation of the algorithm
+- Przemysław Rodzik - GUI, implementation of Dijkstra pathfinding algorithm
 - Łukasz Wajda - GUI
-- Mateusz Niepokój - generacja obrazów testowych
-- Mariusz Biegański - release
-- cdn.
+- Mateusz Niepokój - test image generation
+- Mariusz Biegański - creating windows and linux release
+- Szymon Pawelec - documentation
 
 # How to run
-Go to our Release page and select the most suitable option for your system. You can find them under [this link](https://github.com/Dodzik/AiPO_project/releases/latest).
+Go to our Release page and select the most suitable option for your system. You can find them under [this link](https://github.com/Dodzik/AiPO_project/releases/latest). Both the releases are created for python version 3.11 as well as the script itself has been tested with that version in mind. Older versions might also work but that has not been tested.
 ## Linux
 Download *.tar.gz from Releases and run e.g. for newest linux 64 bit release
 ```
@@ -20,6 +18,17 @@ tar -xzf aipo_project_linux_64_v.1.0.0.tar.gz
 ```
 ## Windows
 Download *.zip from Releases for your platform and unzip the folder, open aipo_project_windows folder, find main.exe and double click it to start the application.
+
+## Python
+If all else fails on a python-supported platform you can also simply download the interpreter and then the source code for the project. Run the following line to install necessary dependencies:
+```
+pip install -r requirements.txt
+```
+In the folder you have unpacked the source code in. And then simply launch the program like so:
+```
+python main.py
+```
+It is necessary that during the installation of the python interpreter, the tcl/tk additional package is also installed.
 
 # How to use
 1. Select an image
