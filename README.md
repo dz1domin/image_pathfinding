@@ -1,12 +1,10 @@
-# Tutaj będzie krótki opis projektu, uruchamianie itp.
-
-# Autorzy
-- Dominik Dziuba - pomysł i implementacja algorytmu
-- Przemysław Rodzik - GUI, implementacja algorytmu Dijkstry
+# Authors
+- Dominik Dziuba - general idea and implementation of the algorithm
+- Przemysław Rodzik - GUI, implementation of Dijkstra pathfinding algorithm
 - Łukasz Wajda - GUI
-- Mateusz Niepokój - generacja obrazów testowych
-- Mariusz Biegański - release
-- cdn.
+- Mateusz Niepokój - test image generation
+- Mariusz Biegański - creating windows and linux release
+- Szymon Pawelec - documentation
 
 # How to run
 Go to our Release page and select the most suitable option for your system. You can find them under [this link](https://github.com/Dodzik/AiPO_project/releases/latest).
