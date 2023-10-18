@@ -1,5 +1,5 @@
 # Authors
-- Dominik Dziuba - general idea and implementation of the algorithm
+- Dominik Dziuba - general idea and implementation of the algorithm, design of the GUI and necessary elements, leading the team
 - Przemysław Rodzik - GUI, implementation of Dijkstra pathfinding algorithm
 - Łukasz Wajda - GUI
 - Mateusz Niepokój - test image generation
